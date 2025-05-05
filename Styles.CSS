@@ -1,0 +1,250 @@
+/* 1. Base font stack for the Apple look */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+                 Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    color: #1c1c1e; /* Primary label color */
+  }
+  
+  /* 2. Main title (h1) styling */
+  .checklist-container h1 {
+    /* new font stack */
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, Oxygen, Ubuntu,
+                 Cantarell, "Helvetica Neue", sans-serif;
+    font-weight: 700;       /* use the bold weight you imported */
+    font-size: 2.5rem;
+    letter-spacing: -0.5px;
+    color: #3a3a3a; /* Primary label color */
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5); /* subtle shadow for depth */
+    padding: 0.5rem 0;       /* vertical padding */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05)); /* light gradient */
+    border-radius: 12px;     /* rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* soft shadow */
+    transition: background 0.3s, box-shadow 0.3s; /* smooth transition */
+  }
+  
+  /* 3. Section headings (h2) styling */
+  .checklist-container h2 {
+    position: relative;
+    font-size: 1.25rem;                     /* slightly larger than body text */
+    font-weight: 500;                       /* medium weight */
+    color: rgba(60, 60, 67, 0.6);           /* secondary label color */
+    margin: 2rem 0 0.75rem;
+    padding-bottom: 0.5rem;                 /* space for the underline */
+    line-height: 1.3;
+  }
+  
+  /* 4. Underline effect via pseudo-element */
+  .checklist-container h2::after {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    bottom: 0;
+    height: 1px;
+    background: rgba(60, 60, 67, 0.2);      /* very light divider */
+  }
+  
+  /* 5. Responsive tweaks (optional) */
+  @media (max-width: 600px) {
+    .checklist-container h1 {
+      font-size: 2rem;
+    }
+    .checklist-container h2 {
+      font-size: 1.1rem;
+    }
+  }
+  
+  .checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .checklist li {
+    display: flex;
+    align-items: center;
+    margin: 0.75rem 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  .checklist input[type="checkbox"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    margin-right: 0.75rem;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .checklist input[type="checkbox"]:checked {
+    background: #007AFF;         /* iOS blue */
+    border-color: #007AFF;
+  }
+  .checklist input[type="checkbox"]:checked::after {
+    content: "✔";
+    position: absolute;
+    top: 1px; left: 4px;
+    color: white;
+    font-size: 1rem;
+  }
+  .checklist input[type="checkbox"]:hover {
+    border-color: #007AFF;
+  }
+  .checklist input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0,122,255,0.3);
+  }
+  .task[data-state="0"] { /* To-Do */
+    background: #F2F2F7; /* very light grey */
+  }
+  .task[data-state="1"] { /* Up-Next */
+    background: #FFEFF0; /* very soft red */
+  }
+  .task[data-state="2"] { /* In-Progress */
+    background: #E6F4EA; /* very soft green */
+  }
+  .task[data-state="3"] { /* Finished */
+    background: #34C759; /* solid green */
+    color: white;
+  }
+  .state-select {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    border: none;
+    background: transparent;
+    appearance: none;
+    padding: 0.25rem 0.5rem;
+    margin-left: auto;
+    cursor: pointer;
+  }
+  .task { display: flex; align-items: center; padding: 0.75rem; border-radius: 12px; margin-bottom: 0.5rem; transition: background 0.2s; }
+    
+  #clear-progress {
+    background: transparent;
+    border: 1px solid rgba(60,60,67,0.3);
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.9rem;
+    color: #FF3B30;           /* iOS “destructive” red */
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  #clear-progress:hover {
+    background: rgba(255,59,48,0.1);
+    border-color: #FF3B30;
+  }
+/* hide the tasks when locked, show the hint message */
+.module[data-locked="true"] .checklist {
+    display: none;
+  }
+  .module[data-locked="true"] .locked-msg {
+    display: block;
+  }
+  
+  /* when unlocked, hide the hint */
+  .module[data-locked="false"] .locked-msg {
+    display: none;
+  }
+  
+  /* default: hide any locked-msg until JS shows it */
+  .locked-msg {
+    display: none;
+    font-style: italic;
+    color: rgba(60,60,67,0.6);
+    margin-bottom: 1rem;
+  }  
+  .state-btn {
+    margin-left: auto;
+    padding: 0.4rem 0.75rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-size: 0.9rem;
+    border: 1px solid rgba(60,60,67,0.2);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.6);
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .state-btn:hover {
+    background: rgba(0,122,255,0.1);
+    border-color: #007AFF;
+  }
+  .course-link {
+    display: inline-block;
+    margin: 0 auto 1.5rem;
+    padding: 0.5rem 1rem;
+    font-family: 'Quicksand', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    color: white;
+    background-color: #007AFF;
+    border-radius: 12px;
+    transition: background-color 0.2s;
+  }
+  .course-link:hover {
+    background-color: #0051A8;
+  }
+    .course-link:active {
+        background-color: #003B7F;
+    }      
+    .course-link:focus {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(0,122,255,0.3);
+    }
+  .course-link:visited {
+    color: #fff; /* Keep the text color white */
+  }  
+/* 1) Center and space the pair */
+.button-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;           /* space between them */
+  margin-bottom: 1.5rem;
+}
+
+/* 2) Make both controls inline-flex and remove auto-margins */
+.button-row > * {
+  display: inline-flex;      /* lets us center their text vertically */
+  align-items: center;
+  margin: 0;                 /* override any old auto-margins */
+  line-height: 1;            /* collapse extra font padding */
+  padding: 0.5rem 1rem;      /* unify padding */
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;     /* for the link */
+}
+
+/* 3) Clear-progress specifics */
+#clear-progress {
+  background: transparent;
+  border: 1px solid rgba(60,60,67,0.3);
+  color: #FF3B30;
+  transition: background 0.2s, border-color 0.2s;
+}
+#clear-progress:hover {
+  background: rgba(255,59,48,0.1);
+  border-color: #FF3B30;
+}
+
+/* 4) Course-link specifics */
+.course-link {
+  background-color: #007AFF;
+  border: none;
+  color: white;
+  transition: background-color 0.2s;
+}
+.course-link:hover {
+  background-color: #0051A8;
+}
+.course-link:active {
+  background-color: #003B7F;
+}
+.course-link:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(0,122,255,0.3);
+}
+  

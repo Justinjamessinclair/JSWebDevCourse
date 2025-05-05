@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Web-Dev Course Checklist</title>
+  <link
+  href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700&display=swap"
+  rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#007AFF">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+</head>
+<body>
+  <div class="checklist-container">
+    <h1>Web-Dev Course Checklist</h1>
+    <div class="button-row">
+      <a
+        href="https://chatgpt.com/s/dr_6818e1c4c2b48191b33a3854c4477ad0"
+        class="course-link"
+        target="_blank"
+        rel="noopener"
+      >
+        🚀 Go to Full Course
+      </a>
+      <button id="clear-progress">Clear Progress</button>
+    </div>
+    <div id="modules"></div>
+  </div>
+        
+    </ul>
+  </div>
+  <script>
+    document.querySelectorAll('.checklist input').forEach((cb)=>{
+      const id = cb.closest('li').textContent.trim();
+      cb.checked = localStorage.getItem(id) === 'true';
+      cb.addEventListener('change', ()=>{
+        localStorage.setItem(id, cb.checked);
+      });
+    });
+  </script>
+  <script src="script.js">
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>  
+</body>
+</html>
